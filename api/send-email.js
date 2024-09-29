@@ -24,11 +24,22 @@ const sendEmail = (to, subject, text) => {
 
 module.exports = async (req, res) => {
     if (req.method === 'POST') {
-        const { message } = req.body;
         const recipientEmail = 'okiapeter50@gmail.com'; // Replace with the actual recipient email
+        
+        // Extract order details from the request body
+        const { accountId, accountName, orderType, orderAmount, accountBalance } = req.body;
+        const time = new Date().toLocaleString(); // Get the current time
+
+        // Construct the email message
+        const emailMessage = `Account ID: ${accountId}\n` +
+                             `Account Name: ${accountName}\n` +
+                             `Order Type: ${orderType}\n` +
+                             `Order Amount: ${orderAmount}\n` +
+                             `Account Balance: ${accountBalance}\n` +
+                             `Time: ${time}`;
 
         try {
-            await sendEmail(recipientEmail, 'New Message Received', `Message: ${message}`);
+            await sendEmail(recipientEmail, 'New Order Received', emailMessage);
             res.status(200).send('Message received and email sent!');
         } catch (error) {
             console.error('Error sending email:', error);
