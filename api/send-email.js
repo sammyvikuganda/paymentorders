@@ -43,11 +43,12 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            width: 100%; /* Set body width to 100% */
+            -webkit-text-size-adjust: 100%; /* Prevent font scaling in iOS */
         }
         .container {
-            max-width: 600px; /* Set max width */
-            width: 100%; /* Full width */
-            margin: 20px auto;
+            max-width: 600px; /* Maximum width */
+            margin: 20px auto; /* Center the container */
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
@@ -55,19 +56,23 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
         }
         h2 {
             color: #4CAF50;
-            text-align: center;
+            text-align: left; /* Align left */
+            margin: 0; /* Remove default margin */
         }
         p {
             font-size: 14px;
             color: #333;
+            margin: 0; /* Remove default margin */
+            padding: 5px 0; /* Added padding for spacing */
+            text-align: left; /* Align left */
         }
         .order-summary {
-            margin-top: 20px;
+            margin-top: 10px; /* Reduced margin */
         }
         .details-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 10px 0; /* Reduced margin */
             font-size: 14px;
             color: #333;
         }
@@ -76,7 +81,7 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
             color: #fff;
         }
         .details-table th, .details-table td {
-            padding: 12px 15px;
+            padding: 10px; /* Reduced padding */
             border: 1px solid #ddd;
             text-align: left;
         }
@@ -89,24 +94,11 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
         .details-table tbody tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-        .details-table tbody tr:hover {
-            background-color: #f1f1f1;
-        }
-        .details-table td {
-            vertical-align: middle;
-        }
-        .icon {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
         .footer {
             text-align: center;
             font-size: 12px;
             color: #888;
-            margin-top: 20px;
+            margin-top: 10px; /* Reduced margin */
         }
         .footer p {
             margin: 5px 0;
@@ -116,6 +108,13 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
             text-decoration: none;
         }
         /* Icons */
+        .icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
         .icon-account-id {
             background-image: url('https://img.icons8.com/ios-filled/50/4caf50/identification-documents.png');
             background-size: contain;
@@ -148,7 +147,7 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
 </head>
 <body>
 
-    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
         <tr>
             <td align="center">
                 <div class="container">
@@ -208,8 +207,10 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
             </td>
         </tr>
     </table>
+
 </body>
 </html>
+
     `;
 };
 
