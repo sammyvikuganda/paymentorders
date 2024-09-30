@@ -32,195 +32,126 @@ const sendEmail = (to, subject, htmlContent) => {
 const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orderAmount, accountBalance, time) => {
     return `
     <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Confirmation</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0; /* Remove default margin */
-            padding: 0; /* Remove default padding */
-            width: 100%; /* Full width */
-            -webkit-text-size-adjust: 100%; /* Prevent font scaling in iOS */
-        }
-        .container {
-            max-width: 600px; /* Maximum width */
-            width: 100%; /* Full width */
-            margin: 0 auto; /* Center the container */
-            padding: 0; /* Remove padding */
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box; /* Include padding in total width */
-        }
-        h2 {
-            color: #4CAF50;
-            text-align: left; /* Align left */
-            margin: 10px 0; /* Add space above and below */
-            padding: 0 15px; /* Minimal padding */
-        }
-        p {
-            font-size: 14px;
-            color: #333;
-            margin: 5px 0; /* Reduced margins */
-            padding: 0 15px; /* Minimal padding */
-            text-align: left; /* Align left */
-        }
-        .order-summary {
-            margin: 10px 0; /* Reduced margin */
-        }
-        .details-table {
-            width: 100%; /* Full width */
-            border-collapse: collapse; /* Remove gaps between cells */
-            margin: 10px 0; /* Reduced margin */
-            font-size: 14px;
-            color: #333;
-        }
-        .details-table thead {
-            background-color: #4CAF50;
-            color: #fff;
-        }
-        .details-table th, .details-table td {
-            padding: 10px; /* Padding for cells */
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        .details-table th {
-            font-weight: bold;
-        }
-        .details-table tbody tr {
-            background-color: #f9f9f9;
-        }
-        .details-table tbody tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        .footer {
-            text-align: center;
-            font-size: 12px;
-            color: #888;
-            margin-top: 10px; /* Reduced margin */
-            padding: 0 15px; /* Minimal padding */
-        }
-        .footer p {
-            margin: 5px 0;
-        }
-        .footer a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-        /* Icons */
-        .icon {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-        .icon-account-id {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/identification-documents.png');
-            background-size: contain;
-        }
-        .icon-account {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/user.png');
-            background-size: contain;
-        }
-        .icon-phone {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/phone.png');
-            background-size: contain;
-        }
-        .icon-wallet {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/wallet.png');
-            background-size: contain;
-        }
-        .icon-shopping-cart {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/shopping-cart.png');
-            background-size: contain;
-        }
-        .icon-money-bag {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/money-bag.png');
-            background-size: contain;
-        }
-        .icon-clock {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/clock.png');
-            background-size: contain;
-        }
-    </style>
-</head>
-<body>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nexus</title>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #ffffff; /* White background */
+                margin: 0; /* Remove default margin */
+                padding: 0; /* Remove default padding */
+                width: 100%; /* Full width */
+                -webkit-text-size-adjust: 100%; /* Prevent font scaling in iOS */
+            }
+            .container {
+                max-width: 600px; /* Maximum width */
+                width: 100%; /* Full width */
+                margin: 0 auto; /* Center the container */
+                padding: 0; /* Remove padding */
+                background-color: #ffffff; /* White background */
+                border-radius: 0; /* Remove border radius */
+                box-shadow: none; /* Remove shadow */
+                box-sizing: border-box; /* Include padding in total width */
+            }
+            h2 {
+                color: #4CAF50;
+                text-align: left; /* Align left */
+                margin: 10px 0; /* Add space above and below */
+                padding: 0 15px; /* Minimal padding */
+            }
+            p {
+                font-size: 14px; /* Standard font size */
+                color: #333;
+                margin: 5px 0; /* Reduced margins */
+                padding: 0 15px; /* Minimal padding */
+                text-align: left; /* Align left */
+            }
+            .details-table {
+                width: 100%; /* Full width */
+                border-collapse: collapse; /* Remove gaps between cells */
+                margin: 10px 0; /* Reduced margin */
+                font-size: 14px;
+                color: #333;
+            }
+            .details-table thead {
+                background-color: #4CAF50; /* Header background */
+                color: #fff;
+            }
+            .details-table th, .details-table td {
+                padding: 10px; /* Padding for cells */
+                border: 1px solid #ddd; /* Light border */
+                text-align: left;
+            }
+            .footer {
+                text-align: left; /* Align left */
+                font-size: 12px;
+                color: #888;
+                margin-top: 10px; /* Reduced margin */
+                padding: 0; /* No padding */
+            }
+        </style>
+    </head>
+    <body>
 
-    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; padding: 0; margin: 0;">
-        <tr>
-            <td align="center" style="padding: 0; margin: 0;">
-                <div class="container">
-                    <h2>Order Confirmation</h2>
+        <div class="container">
+            <h2>Nexus</h2>
+            <p>Dear ${accountName},</p>
+            <p>We have received your order. Below are the details:</p>
 
-                    <p>Dear {{accountName}},</p>
-                    <p>We have received your order. Below are the details:</p>
+            <table class="details-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50%;">Details</th>
+                        <th style="width: 50%;">Information</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Account ID</td>
+                        <td>${accountId}</td>
+                    </tr>
+                    <tr>
+                        <td>Account Name</td>
+                        <td>${accountName}</td>
+                    </tr>
+                    <tr>
+                        <td>Phone Number</td>
+                        <td>${phoneNumber}</td>
+                    </tr>
+                    <tr>
+                        <td>Order Type</td>
+                        <td>${orderType}</td>
+                    </tr>
+                    <tr>
+                        <td>Order Amount</td>
+                        <td>${orderAmount}</td>
+                    </tr>
+                    <tr>
+                        <td>Account Balance</td>
+                        <td>${accountBalance}</td>
+                    </tr>
+                    <tr>
+                        <td>Time</td>
+                        <td>${time}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-                    <div class="order-summary">
-                        <table class="details-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 50%;">Details</th>
-                                    <th style="width: 50%;">Information</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="icon icon-account-id"></span>Account ID</td>
-                                    <td>{{accountId}}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="icon icon-account"></span>Account Name</td>
-                                    <td>{{accountName}}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="icon icon-phone"></span>Phone Number</td>
-                                    <td>{{phoneNumber}}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="icon icon-shopping-cart"></span>Order Type</td>
-                                    <td>{{orderType}}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="icon icon-money-bag"></span>Order Amount</td>
-                                    <td>{{orderAmount}}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="icon icon-wallet"></span>Account Balance</td>
-                                    <td>{{accountBalance}}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="icon icon-clock"></span>Time</td>
-                                    <td>{{time}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <p>Thank you for using Nexus. Your order will be processed shortly.</p>
+            <p class="footer">This is an automated message. Please do not reply.</p>
+        </div>
 
-                    <p>Thank you for your order! We will process it shortly.</p>
-
-                    <div class="footer">
-                        <p>This is an automated message. Please do not reply.</p>
-                        <p><a href="#">Visit our website</a> | <a href="#">Contact Support</a></p>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-
-</body>
-</html>
-
+    </body>
+    </html>
     `;
 };
 
 // Endpoint to handle sending the email
 app.post('/api/send-email', async (req, res) => {
-    const adminEmail = 'okiapeter50@gmail.com'; // Email for the admin or default recipient
+    const adminEmail = process.env.EMAIL_USER; // Email for the admin or default recipient
 
     // Extract order details from the request body, including user email
     const { accountId, accountName, orderType, orderAmount, accountBalance, phoneNumber, userEmail } = req.body;
