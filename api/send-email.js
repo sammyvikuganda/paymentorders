@@ -231,6 +231,7 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
 
 </body>
 </html>
+
     `;
     
     // Replace placeholders with actual values
