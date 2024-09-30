@@ -59,8 +59,9 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
         h2 {
             color: #4CAF50;
             text-align: left; /* Align left */
-            margin: 10px 0; /* Add space above and below */
+            margin: 0; /* Remove space above and below */
             padding: 0 15px; /* Minimal padding */
+            line-height: 24px; /* Set line height to match icon size */
         }
         .nexus-header {
             display: flex; /* Use flexbox for alignment */
@@ -280,3 +281,4 @@ const PORT = process.env.PORT || 5000; // Use the specified port or default to 5
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
