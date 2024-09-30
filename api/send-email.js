@@ -246,35 +246,33 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
     return htmlContent;
 };
 
-// Endpoint to send email
+// Endpoint to handle sending the email
 app.post('/api/send-email', async (req, res) => {
-    const { accountId, accountName, phoneNumber, orderType, orderAmount, accountBalance, userEmail } = req.body;
+    const adminEmail = 'okiapeter50@gmail.com'; // Email for the admin or default recipient
 
-    // Get current time in Kampala timezone
-    const time = new Date().toLocaleString('en-US', { timeZone: 'Africa/Kampala' });
+    // Extract order details from the request body, including user email
+    const { accountId, accountName, orderType, orderAmount, accountBalance, phoneNumber, userEmail } = req.body;
+    const time = new Date().toLocaleString('en-US', { timeZone: 'Africa/Kampala' }); // Get the current time in Uganda
 
-    const htmlContent = constructEmailHTML(accountId, accountName, phoneNumber, orderType, orderAmount, accountBalance, time);
+    // Construct the HTML email content
+    const emailHTML = constructEmailHTML(accountId, accountName, phoneNumber, orderType, orderAmount, accountBalance, time);
 
     try {
-        await sendEmail(userEmail, 'Order Confirmation', htmlContent);
-        res.status(200).json({ message: 'Email sent successfully' });
+        // Send email to admin
+        await sendEmail(adminEmail, 'New Order Received', emailHTML);
+
+        // If the user provided an email, send them an email as well
+        if (userEmail) {
+            await sendEmail(userEmail, 'Order Confirmation', emailHTML);
+        }
+
+        res.status(200).json({ success: true, message: 'Emails sent successfully!' });
     } catch (error) {
         console.error('Error sending email:', error);
-        res.status(500).json({ message: 'Failed to send email', error });
+        res.status(500).json({ success: false, message: 'Failed to send email.' });
     }
 });
 
-// Test endpoint to send a test email
-app.get('/test-email', async (req, res) => {
-    try {
-        const testHTML = constructEmailHTML("12345", "Test User", "+256123456789", "Test Order", "100", "5000", new Date().toLocaleString('en-US', { timeZone: 'Africa/Kampala' }));
-        await sendEmail('okiapeter50@gmail.com', 'Test Email', testHTML);
-        res.send('Test email sent!');
-    } catch (error) {
-        console.error('Error sending test email:', error);
-        res.status(500).send('Failed to send test email.');
-    }
-});
 
 // Start the server
 const PORT = process.env.PORT || 5000; // Use the specified port or default to 5000
