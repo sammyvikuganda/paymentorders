@@ -27,12 +27,13 @@ module.exports = async (req, res) => {
         const recipientEmail = 'okiapeter50@gmail.com'; // Replace with the actual recipient email
         
         // Extract order details from the request body
-        const { accountId, accountName, orderType, orderAmount, accountBalance } = req.body;
-        const time = new Date().toLocaleString(); // Get the current time
+        const { accountId, accountName, orderType, orderAmount, accountBalance, phoneNumber } = req.body;
+        const time = new Date().toLocaleString('en-US', { timeZone: 'Africa/Kampala' }); // Get the current time in Uganda
 
         // Construct the email message
         const emailMessage = `Account ID: ${accountId}\n` +
                              `Account Name: ${accountName}\n` +
+                             `Phone Number: ${phoneNumber}\n` +
                              `Order Type: ${orderType}\n` +
                              `Order Amount: ${orderAmount}\n` +
                              `Account Balance: ${accountBalance}\n` +
@@ -40,12 +41,12 @@ module.exports = async (req, res) => {
 
         try {
             await sendEmail(recipientEmail, 'New Order Received', emailMessage);
-            res.status(200).send('Message received and email sent!');
+            res.status(200).json({ success: true, message: 'Email sent successfully!' });
         } catch (error) {
             console.error('Error sending email:', error);
-            res.status(500).send('Failed to send email.');
+            res.status(500).json({ success: false, message: 'Failed to send email.' });
         }
     } else {
-        res.status(405).send('Method Not Allowed');
+        res.status(405).json({ success: false, message: 'Method Not Allowed' });
     }
 };
