@@ -32,166 +32,184 @@ const sendEmail = (to, subject, htmlContent) => {
 const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orderAmount, accountBalance, time) => {
     return `
     <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Order Confirmation</title>
-        <style>
-            body {
-                font-family: 'Arial', sans-serif;
-                background-color: #f4f4f4;
-                margin: 0;
-                padding: 0;
-            }
-            .container {
-                max-width: 600px;
-                margin: 20px auto;
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            }
-            h2 {
-                color: #4CAF50;
-                text-align: center;
-            }
-            p {
-                font-size: 14px;
-                color: #333;
-            }
-            .order-summary {
-                margin-top: 20px;
-            }
-            .details-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 20px 0;
-                font-size: 14px;
-                color: #333;
-            }
-            .details-table thead {
-                background-color: #4CAF50;
-                color: #fff;
-            }
-            .details-table th, .details-table td {
-                padding: 12px 15px;
-                border: 1px solid #ddd;
-                text-align: left;
-            }
-            .details-table th {
-                font-weight: bold;
-            }
-            .details-table tbody tr {
-                background-color: #f9f9f9;
-            }
-            .details-table tbody tr:nth-child(even) {
-                background-color: #f2f2f2;
-            }
-            .details-table tbody tr:hover {
-                background-color: #f1f1f1;
-            }
-            .details-table td {
-                vertical-align: middle;
-            }
-            .icon {
-                display: inline-block;
-                width: 20px;
-                height: 20px;
-                margin-right: 10px;
-                vertical-align: middle;
-            }
-            .footer {
-                text-align: center;
-                font-size: 12px;
-                color: #888;
-                margin-top: 20px;
-            }
-            .footer p {
-                margin: 5px 0;
-            }
-            .footer a {
-                color: #4CAF50;
-                text-decoration: none;
-            }
-            /* Icons */
-            .icon-account {
-                background-image: url('https://img.icons8.com/ios-filled/50/4caf50/user.png');
-                background-size: contain;
-            }
-            .icon-phone {
-                background-image: url('https://img.icons8.com/ios-filled/50/4caf50/phone.png');
-                background-size: contain;
-            }
-            .icon-order {
-                background-image: url('https://img.icons8.com/ios-filled/50/4caf50/buy.png');
-                background-size: contain;
-            }
-            .icon-time {
-                background-image: url('https://img.icons8.com/ios-filled/50/4caf50/time.png');
-                background-size: contain;
-            }
-        </style>
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px; /* Set max width */
+            width: 100%; /* Full width */
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        p {
+            font-size: 14px;
+            color: #333;
+        }
+        .order-summary {
+            margin-top: 20px;
+        }
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #333;
+        }
+        .details-table thead {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+        .details-table th, .details-table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .details-table th {
+            font-weight: bold;
+        }
+        .details-table tbody tr {
+            background-color: #f9f9f9;
+        }
+        .details-table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .details-table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .details-table td {
+            vertical-align: middle;
+        }
+        .icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 20px;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        /* Icons */
+        .icon-account-id {
+            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/identification-documents.png');
+            background-size: contain;
+        }
+        .icon-account {
+            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/user.png');
+            background-size: contain;
+        }
+        .icon-phone {
+            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/phone.png');
+            background-size: contain;
+        }
+        .icon-wallet {
+            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/wallet.png');
+            background-size: contain;
+        }
+        .icon-shopping-cart {
+            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/shopping-cart.png');
+            background-size: contain;
+        }
+        .icon-money-bag {
+            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/money-bag.png');
+            background-size: contain;
+        }
+        .icon-clock {
+            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/clock.png');
+            background-size: contain;
+        }
+    </style>
+</head>
+<body>
 
-        <div class="container">
-            <h2>Order Confirmation</h2>
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td align="center">
+                <div class="container">
+                    <h2>Order Confirmation</h2>
 
-            <p>Dear ${accountName},</p>
-            <p>We have received your order. Below are the details:</p>
+                    <p>Dear {{accountName}},</p>
+                    <p>We have received your order. Below are the details:</p>
 
-            <div class="order-summary">
-                <table class="details-table">
-                    <thead>
-                        <tr>
-                            <th>Details</th>
-                            <th>Information</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="icon icon-account"></span>Account ID</td>
-                            <td>${accountId}</td>
-                        </tr>
-                        <tr>
-                            <td><span class="icon icon-account"></span>Account Name</td>
-                            <td>${accountName}</td>
-                        </tr>
-                        <tr>
-                            <td><span class="icon icon-phone"></span>Phone Number</td>
-                            <td>${phoneNumber}</td>
-                        </tr>
-                        <tr>
-                            <td><span class="icon icon-order"></span>Order Type</td>
-                            <td>${orderType}</td>
-                        </tr>
-                        <tr>
-                            <td><span class="icon icon-order"></span>Order Amount</td>
-                            <td>${orderAmount}</td>
-                        </tr>
-                        <tr>
-                            <td><span class="icon icon-order"></span>Account Balance</td>
-                            <td>${accountBalance}</td>
-                        </tr>
-                        <tr>
-                            <td><span class="icon icon-time"></span>Time</td>
-                            <td>${time}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                    <div class="order-summary">
+                        <table class="details-table">
+                            <thead>
+                                <tr>
+                                    <th>Details</th>
+                                    <th>Information</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="icon icon-account-id"></span>Account ID</td>
+                                    <td>{{accountId}}</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="icon icon-account"></span>Account Name</td>
+                                    <td>{{accountName}}</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="icon icon-phone"></span>Phone Number</td>
+                                    <td>{{phoneNumber}}</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="icon icon-shopping-cart"></span>Order Type</td>
+                                    <td>{{orderType}}</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="icon icon-money-bag"></span>Order Amount</td>
+                                    <td>{{orderAmount}}</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="icon icon-wallet"></span>Account Balance</td>
+                                    <td>{{accountBalance}}</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="icon icon-clock"></span>Time</td>
+                                    <td>{{time}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-            <p>Thank you for your order! We will process it shortly.</p>
+                    <p>Thank you for your order! We will process it shortly.</p>
 
-            <div class="footer">
-                <p>This is an automated message. Please do not reply.</p>
-                <p><a href="#">Visit our website</a> | <a href="#">Contact Support</a></p>
-            </div>
-        </div>
-
-    </body>
-    </html>
+                    <div class="footer">
+                        <p>This is an automated message. Please do not reply.</p>
+                        <p><a href="#">Visit our website</a> | <a href="#">Contact Support</a></p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
     `;
 };
 
