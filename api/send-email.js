@@ -16,67 +16,49 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// Function to send HTML email
-const sendEmail = (to, subject, html) => {
+// Function to send email
+const sendEmail = (to, subject, text) => {
     const mailOptions = {
         from: process.env.EMAIL_USER,    // Sender address
         to,                               // Recipient address
         subject,                          // Subject line
-        html                              // HTML body for the email
+        text                              // Plain text body
     };
 
     return transporter.sendMail(mailOptions);
 };
 
 app.post('/api/send-email', async (req, res) => {
-    const recipientEmail = 'okiapeter50@gmail.com'; // Replace with the actual recipient email
-    
-    // Extract order details from the request body
-    const { accountId, accountName, orderType, orderAmount, accountBalance, phoneNumber } = req.body;
+    const adminEmail = 'okiapeter50@gmail.com'; // Email for the admin or default recipient
+
+    // Extract order details from the request body, including user email
+    const { accountId, accountName, orderType, orderAmount, accountBalance, phoneNumber, userEmail } = req.body;
     const time = new Date().toLocaleString('en-US', { timeZone: 'Africa/Kampala' }); // Get the current time in Uganda
 
-    // Construct the HTML email message
-    const emailMessage = `
-        <html>
-        <body style="font-family: Arial, sans-serif; line-height: 1.6;">
-            <h2>New Order Received</h2>
-            <table style="width: 100%; max-width: 600px; margin: auto; border-collapse: collapse;">
-                <tr>
-                    <td style="font-weight: bold;">Account ID:</td>
-                    <td>${accountId}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Account Name:</td>
-                    <td>${accountName}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Phone Number:</td>
-                    <td>${phoneNumber}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Order Type:</td>
-                    <td>${orderType}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Order Amount:</td>
-                    <td>${orderAmount}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Account Balance:</td>
-                    <td>${accountBalance}</td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;">Time:</td>
-                    <td>${time}</td>
-                </tr>
-            </table>
-        </body>
-        </html>
-    `;
+    // Construct the email message
+    const emailMessage = `Account ID: ${accountId}\n` +
+                         `Account Name: ${accountName}\n` +
+                         `Phone Number: ${phoneNumber}\n` +
+                         `Order Type: ${orderType}\n` +
+                         `Order Amount: ${orderAmount}\n` +
+                         `Account Balance: ${accountBalance}\n` +
+                         `Time: ${time}`;
 
     try {
-        await sendEmail(recipientEmail, 'New Order Received', emailMessage);
-        res.status(200).json({ success: true, message: 'Email sent successfully!' });
+        // Send email to admin
+        await sendEmail(adminEmail, 'New Order Received', emailMessage);
+
+        // If the user provided an email, send them an email as well
+        if (userEmail) {
+            const userMessage = `Hello ${accountName},\n\n` +
+                                `We have received your order:\n\n` +
+                                `${emailMessage}\n\n` +
+                                `Thank you for using our service.`;
+
+            await sendEmail(userEmail, 'Order Confirmation', userMessage);
+        }
+
+        res.status(200).json({ success: true, message: 'Emails sent successfully!' });
     } catch (error) {
         console.error('Error sending email:', error);
         res.status(500).json({ success: false, message: 'Failed to send email.' });
