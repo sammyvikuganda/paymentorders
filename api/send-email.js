@@ -41,37 +41,40 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            width: 100%; /* Set body width to 100% */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            width: 100%; /* Full width */
             -webkit-text-size-adjust: 100%; /* Prevent font scaling in iOS */
         }
         .container {
             max-width: 600px; /* Maximum width */
-            margin: 20px auto; /* Center the container */
+            width: 100%; /* Full width */
+            margin: 0 auto; /* Center the container */
+            padding: 0; /* Remove padding */
             background-color: #fff;
-            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box; /* Include padding in total width */
         }
         h2 {
             color: #4CAF50;
             text-align: left; /* Align left */
-            margin: 0; /* Remove default margin */
+            margin: 10px 0; /* Add space above and below */
+            padding: 0 15px; /* Minimal padding */
         }
         p {
             font-size: 14px;
             color: #333;
-            margin: 0; /* Remove default margin */
-            padding: 5px 0; /* Added padding for spacing */
+            margin: 5px 0; /* Reduced margins */
+            padding: 0 15px; /* Minimal padding */
             text-align: left; /* Align left */
         }
         .order-summary {
-            margin-top: 10px; /* Reduced margin */
+            margin: 10px 0; /* Reduced margin */
         }
         .details-table {
-            width: 100%;
-            border-collapse: collapse;
+            width: 100%; /* Full width */
+            border-collapse: collapse; /* Remove gaps between cells */
             margin: 10px 0; /* Reduced margin */
             font-size: 14px;
             color: #333;
@@ -81,7 +84,7 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
             color: #fff;
         }
         .details-table th, .details-table td {
-            padding: 10px; /* Reduced padding */
+            padding: 10px; /* Padding for cells */
             border: 1px solid #ddd;
             text-align: left;
         }
@@ -99,6 +102,7 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
             font-size: 12px;
             color: #888;
             margin-top: 10px; /* Reduced margin */
+            padding: 0 15px; /* Minimal padding */
         }
         .footer p {
             margin: 5px 0;
@@ -147,9 +151,9 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
 </head>
 <body>
 
-    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; padding: 0; margin: 0;">
         <tr>
-            <td align="center">
+            <td align="center" style="padding: 0; margin: 0;">
                 <div class="container">
                     <h2>Order Confirmation</h2>
 
@@ -160,8 +164,8 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
                         <table class="details-table">
                             <thead>
                                 <tr>
-                                    <th>Details</th>
-                                    <th>Information</th>
+                                    <th style="width: 50%;">Details</th>
+                                    <th style="width: 50%;">Information</th>
                                 </tr>
                             </thead>
                             <tbody>
