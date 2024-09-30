@@ -57,22 +57,25 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
             box-sizing: border-box; /* Include padding in total width */
         }
         h2 {
-            color: #4CAF50;
-            text-align: left; /* Align left */
-            margin: 0; /* Remove space above and below */
-            padding: 0 15px; /* Minimal padding */
-            line-height: 24px; /* Set line height to match icon size */
-        }
+    color: #4CAF50;
+    text-align: left; /* Align left */
+    margin: 0; /* Remove space above and below */
+    padding: 0 15px; /* Minimal padding */
+    line-height: 24px; /* Set line height to match icon size */
+    margin-left: 10px; /* Space between icon and heading */
+}
         .nexus-header {
-            display: flex; /* Use flexbox for alignment */
-            align-items: center; /* Center items vertically */
-            padding: 0 15px; /* Minimal padding */
-        }
-        .nexus-icon {
-            width: 24px; /* Adjust size */
-            height: 24px; /* Adjust size */
-            margin-right: 10px; /* Space between icon and text */
-        }
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    padding: 0 15px; /* Minimal padding */
+    margin-bottom: 15px; /* Add space below the header */
+}
+
+.nexus-icon {
+    width: 24px; /* Adjust size */
+    height: 24px; /* Adjust size */
+    margin-right: 10px; /* Space between icon and text */
+}
         p {
             font-size: 14px; /* Standard font size */
             color: #333;
@@ -232,7 +235,6 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
 
 </body>
 </html>
-
     `;
     
     // Replace placeholders with actual values
@@ -281,4 +283,3 @@ const PORT = process.env.PORT || 5000; // Use the specified port or default to 5
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-
