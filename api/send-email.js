@@ -29,7 +29,7 @@ const sendEmail = (to, subject, htmlContent) => {
 };
 
 // Define a function to construct the HTML email template
-const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orderAmount, accountBalance, time) => {
+const constructEmailHTML = (heading, paragraph) => {
     let htmlContent = `
     <!DOCTYPE html>
 <html lang="en">
@@ -195,39 +195,33 @@ const constructEmailHTML = (accountId, accountName, phoneNumber, orderType, orde
     </div>
 </body>
 </html>
-    `;
     
-    // Replace placeholders with actual values
-    htmlContent = htmlContent
-        .replace(/{{accountId}}/g, accountId)
-        .replace(/{{accountName}}/g, accountName)
-        .replace(/{{phoneNumber}}/g, phoneNumber)
-        .replace(/{{orderType}}/g, orderType)
-        .replace(/{{orderAmount}}/g, orderAmount)
-        .replace(/{{accountBalance}}/g, accountBalance)
-        .replace(/{{time}}/g, time);
+    `;
     
     return htmlContent;
 };
 
 // Endpoint to handle sending the email
 app.post('/api/send-email', async (req, res) => {
-    const adminEmail = 'okiapeter50@gmail.com'; // Email for the admin or default recipient
+    const { adminEmail, userEmail, heading, paragraph, subject } = req.body;
 
-    // Extract order details from the request body, including user email
-    const { accountId, accountName, orderType, orderAmount, accountBalance, phoneNumber, userEmail } = req.body;
-    const time = new Date().toLocaleString('en-US', { timeZone: 'Africa/Kampala' }); // Get the current time in Uganda
+    // Validate required fields
+    if (!heading || !paragraph || !subject) {
+        return res.status(400).json({ success: false, message: 'Missing required fields: heading, paragraph, or subject.' });
+    }
 
     // Construct the HTML email content
-    const emailHTML = constructEmailHTML(accountId, accountName, phoneNumber, orderType, orderAmount, accountBalance, time);
+    const emailHTML = constructEmailHTML(heading, paragraph);
 
     try {
         // Send email to admin
-        await sendEmail(adminEmail, 'New Order Received', emailHTML);
+        if (adminEmail) {
+            await sendEmail(adminEmail, subject, emailHTML);
+        }
 
         // If the user provided an email, send them an email as well
         if (userEmail) {
-            await sendEmail(userEmail, 'Order Confirmation', emailHTML);
+            await sendEmail(userEmail, subject, emailHTML);
         }
 
         res.status(200).json({ success: true, message: 'Emails sent successfully!' });
@@ -236,7 +230,6 @@ app.post('/api/send-email', async (req, res) => {
         res.status(500).json({ success: false, message: 'Failed to send email.' });
     }
 });
-
 
 // Start the server
 const PORT = process.env.PORT || 5000; // Use the specified port or default to 5000
