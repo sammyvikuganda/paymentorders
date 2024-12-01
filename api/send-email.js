@@ -30,12 +30,12 @@ const constructEmailHTML = (heading, paragraph) => `
         body {
             font-family: Arial, sans-serif;
             background-color: #f3f3f3;
-            margin: 0; /* Remove default margin */
-            padding: 0; /* Remove default padding */
+            margin: 0;
+            padding: 0;
         }
         .container {
             max-width: 600px;
-            margin: 0 auto; /* Ensure the content is centered */
+            margin: 0 auto;
             background-color: #ffffff;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -43,15 +43,15 @@ const constructEmailHTML = (heading, paragraph) => `
         }
         .header {
             background-color: #101010;
-            padding: 5px; /* Further reduced padding for smaller header */
+            padding: 5px;
             text-align: center;
         }
         .header img {
-            width: 40px; /* Smaller logo */
-            margin-bottom: 2px; /* Minimal space between image and text */
+            width: 40px;
+            margin-bottom: 2px;
         }
         .header h1 {
-            font-size: 14px; /* Smaller font size for compact text */
+            font-size: 14px;
             color: #ffffff;
             margin: 0;
             font-weight: bold;
@@ -75,7 +75,7 @@ const constructEmailHTML = (heading, paragraph) => `
             width: 200px;
             margin: 20px auto;
             padding: 10px 0;
-            background-color: #1A7EB1; /* Button color changed */
+            background-color: #1A7EB1;
             color: #fff;
             text-align: center;
             text-decoration: none;
@@ -99,9 +99,9 @@ const constructEmailHTML = (heading, paragraph) => `
         .small-text {
             font-size: 10px;
             color: #888;
-            text-align: left; /* Align text to the left */
+            text-align: left;
             margin-top: 20px;
-            padding-left: 20px; /* Padding to ensure it aligns well */
+            padding-left: 20px;
         }
         .copyright {
             text-align: center;
@@ -111,19 +111,19 @@ const constructEmailHTML = (heading, paragraph) => `
         }
         .line-above {
             border-top: 1px solid #ddd;
-            margin: 0; /* Removed margin after the line */
+            margin: 0;
         }
         .line-below {
             border-bottom: 1px solid #ddd;
-            margin: 0; /* No margin to ensure tightness */
+            margin: 0;
         }
         .disclaimer {
             font-size: 10px;
             color: #888;
-            margin: 0; /* Ensures no margin around this section */
-            padding: 0; /* No padding around this section */
-            text-align: left; /* Align text to the left */
-            padding-left: 20px; /* Align text to the left with some padding */
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            padding-left: 20px;
         }
         .disclaimer-header {
             font-size: 16px;
@@ -133,12 +133,11 @@ const constructEmailHTML = (heading, paragraph) => `
             margin: 15px 0;
         }
         .reduced-size {
-            font-size: 12px; /* Reduced font size */
+            font-size: 12px;
         }
-        /* Remove underline and set color of Privacy policy link */
         .disclaimer a {
-            color: #1A7EB1; /* Set color to match button */
-            text-decoration: none; /* Remove underline */
+            color: #1A7EB1;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -149,18 +148,17 @@ const constructEmailHTML = (heading, paragraph) => `
             <img src="https://i.imgur.com/6e1pFka.png" alt="Custom Logo">
             <h1>NEXUS</h1>
         </div>
-        
+
         <!-- Content Section -->
         <div class="content">
             <h2>${heading}</h2>
             <p>${paragraph}</p>
-            <a href="#" class="button">Contact Us</a>
-            <!-- Reduced font size for this paragraph -->
+            <a href="mailto:supportonline@onmail.com" class="button">Contact Us</a>
             <p class="reduced-size">Don’t recognize this activity? Please reset your password and contact customer support immediately.</p>
         </div>
 
         <!-- Line Above Disclaimer Section -->
-        <div class="line-above"></div> <!-- Horizontal line above the disclaimer text -->
+        <div class="line-above"></div>
 
         <!-- Disclaimer Header: Stay Safe -->
         <div class="disclaimer-header">
@@ -169,21 +167,23 @@ const constructEmailHTML = (heading, paragraph) => `
 
         <!-- Disclaimer Text Section Below the Line -->
         <div class="disclaimer">
-            <p>You have received this email as a registered user of Nexus.<br>For more information about how we process data, please see our <a href="#">Privacy policy</a>.</p>
-            <p>This is an automated message, please do not reply.</p>
+            <p>You have received this email as a registered user of Nexus.<br>For more information about how we process data, please see our <a href="https://nexus.com/privacy-policy">Privacy policy</a>.</p>
+            <p>If you no longer wish to receive these notifications, please contact support at <a href="mailto:supportonline@onmail.com">supportonline@onmail.com</a>.</p>
             <p>Stay connected!</p>
         </div>
 
         <!-- Line Below Disclaimer Section -->
-        <div class="line-below"></div> <!-- Horizontal line below the disclaimer text -->
+        <div class="line-below"></div>
 
-        <!-- Copyright Text (Centered) -->
+        <!-- Automated Message and Copyright Text (Centered) -->
         <div class="copyright">
+            <p>This is an automated message, please do not reply.</p>
             <p>© 2024 Nexus, All Rights Reserved.</p>
         </div>
     </div>
 </body>
 </html>
+
 `;
 
 // API Endpoint to Send Email
