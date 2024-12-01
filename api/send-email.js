@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Email Template
-const constructEmailHTML = (heading, paragraph) => `
+const constructEmailHTML = (heading, paragraph, userEmail) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -183,7 +183,6 @@ const constructEmailHTML = (heading, paragraph) => `
     </div>
 </body>
 </html>
-
 `;
 
 // API Endpoint to Send Email
@@ -194,14 +193,17 @@ app.post('/api/send-email', async (req, res) => {
         return res.status(400).json({ success: false, message: 'Missing required fields.' });
     }
 
-    const emailHTML = constructEmailHTML(heading, paragraph);
+    const emailHTML = constructEmailHTML(heading, paragraph, userEmail);
 
     try {
         await transporter.sendMail({
             from: `Nexus Notifications <${process.env.EMAIL_USER}>`,
             to: userEmail,
             subject,
-            html: emailHTML
+            html: emailHTML,
+            headers: {
+                'List-Unsubscribe': `<mailto:supportonline@onmail.com>, <https://nexus.com/unsubscribe?email=${userEmail}>`
+            }
         });
 
         res.status(200).json({ success: true, message: 'Email sent successfully!' });
